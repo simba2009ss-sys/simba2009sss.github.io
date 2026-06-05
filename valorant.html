@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNSquad - Звездные игроки Valorant из СНГ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b);
+            padding: 25px 0;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }
+
+        header h1 {
+            font-size: 48px;
+        }
+
+        header h1 span {
+            color: #e94560;
+        }
+
+        nav {
+            background-color: #111;
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e94560;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #c73d54;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h2 {
+            font-size: 38px;
+            color: #e94560;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            padding: 25px;
+        }
+
+        .player-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.2);
+        }
+
+        .player-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: top;
+            background: #333;
+        }
+
+        .player-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .player-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .player-nick {
+            color: #e94560;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .player-country {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .player-team {
+            background: #e94560;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .player-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .status-active {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .status-inactive {
+            background: #e67e22;
+            color: white;
+        }
+
+        .prize {
+            font-size: 16px;
+            color: #ffd700;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .achievements {
+            padding: 15px 20px;
+            border-top: 1px solid #333;
+            background: #111;
+        }
+
+        .achievements h4 {
+            color: #e94560;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievements li {
+            font-size: 12px;
+            color: #bbb;
+            padding: 6px 0;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .tournament-name {
+            color: #fff;
+        }
+
+        .tournament-prize {
+            color: #ffd700;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #111;
+            margin-top: 50px;
+            border-top: 1px solid #222;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>CNS<span>quad</span></h1>
+        <p>Valorant - Звездные игроки из СНГ</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="csgo.html">CS:GO</a>
+        <a href="valorant.html">Valorant</a>
+        <a href="fortnite.html">Fortnite</a>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← На главную</a>
+
+        <div class="page-title">
+            <h2>Звездные игроки Valorant из СНГ</h2>
+            <p>Лучшие представители региона на мировой сцене в 2026 году</p>
+        </div>
+
+        <div class="players-grid">
+            <!-- nAts - Team Liquid -->
+            <div class="player-card">
+                <img src="https://avatars.mds.yandex.net/i?id=3d12792a39e25134d76a2973dc8bad22_l-10274729-images-thumbs&n=13"
+                    alt="nAts" onerror="this.src='https://via.placeholder.com/400x220?text=nAts'">
+                <div class="player-info">
+                    <div class="player-name">Айбек Токаев</div>
+                    <div class="player-nick">nAts</div>
+                    <div class="player-country">🇰🇿 Казахстан</div>
+                    <div class="player-team">Team Liquid <span class="player-status status-active">Активен,
+                            капитан</span></div>
+                    <div class="prize">💰 $110,000+ призовых</div>
+                </div>
+                <div class="achievements">
+                    <h4>🏆 Главные достижения</h4>
+                    <ul>
+                        <li><span class="tournament-name">VCT Masters Reykjavík 2022</span><span
+                                class="tournament-prize">🥈 2 место</span></li>
+                        <li><span class="tournament-name">VCT EMEA Stage 1 2022</span><span class="tournament-prize">🥇
+                                1 место</span></li>
+                        <li><span class="tournament-name">VCT EMEA Stage 2 2022</span><span class="tournament-prize">🥇
+                                1 место</span></li>
+                        <li><span class="tournament-name">VCT EMEA 2025 Stage 2</span><span class="tournament-prize">🥇
+                                1 место</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SUYGETSU - Karmine Corp -->
+            <div class="player-card">
+                <img src="https://liquipedia.net/commons/images/thumb/9/98/KC_suygetsu_at_VCT_EMEA_2025_Stage_1.jpg/600px-KC_suygetsu_at_VCT_EMEA_2025_Stage_1.jpg"
+                    alt="SUYGETSU" onerror="this.src='https://via.placeholder.com/400x220?text=SUYGETSU'">
+                <div class="player-info">
+                    <div class="player-name">Дмитрий Илюшин</div>
+                    <div class="player-nick">SUYGETSU</div>
+                    <div class="player-country">🇷🇺 Россия</div>
+                    <div class="player-team">Karmine Corp <span class="player-status status-active">Активен</span></div>
+                    <div class="prize">💰 $119,100+ призовых</div>
+                </div>
+                <div class="achievements">
+                    <h4>🏆 Главные достижения</h4>
+                    <ul>
+                        <li><span class="tournament-name">VCT Masters Copenhagen 2022</span><span
+                                class="tournament-prize">🥇 1 место</span></li>
+                        <li><span class="tournament-name">VCT EMEA Stage 1 2022</span><span class="tournament-prize">🥇
+                                1 место</span></li>
+                        <li><span class="tournament-name">VCT 2022 Stage 1 Masters</span><span
+                                class="tournament-prize">🥇 1 место</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Shao - NAVI (Inactive) -->
+            <div class="player-card">
+                <img src="https://images.cybersport.ru/images/og-jpg/plain/ce/ce0c5030-33dc-4b2c-8f57-979af11f64fc.jpg"
+                    alt="Shao" onerror="this.src='https://via.placeholder.com/400x220?text=Shao'">
+                <div class="player-info">
+                    <div class="player-name">Андрей Кипрский</div>
+                    <div class="player-nick">Shao</div>
+                    <div class="player-country">🇷🇺 Россия</div>
+                    <div class="player-team">NAVI <span class="player-status status-inactive">Inactive</span></div>
+                    <div class="prize">💰 $85,000+ призовых</div>
+                </div>
+                <div class="achievements">
+                    <h4>🏆 Главные достижения</h4>
+                    <ul>
+                        <li><span class="tournament-name">VCT LOCK//IN 2023</span><span class="tournament-prize">🥈 2
+                                место</span></li>
+                        <li><span class="tournament-name">VCT EMEA 2023</span><span class="tournament-prize">🥇 1
+                                место</span></li>
+                        <li><span class="tournament-name">VCT Masters Copenhagen 2022</span><span
+                                class="tournament-prize">🥇 1 место</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chronicle - Team Vitality -->
+            <div class="player-card">
+                <img src="https://newcdn.igromania.ru/articles/pics/tmp/images/2023/8/14/76e3fe66-64fb-4b83-83ce-9dfc2b05e0f1.jpg"
+                    alt="Chronicle" onerror="this.src='https://via.placeholder.com/400x220?text=Chronicle'">
+                <div class="player-info">
+                    <div class="player-name">Тимур Тулепов</div>
+                    <div class="player-nick">Chronicle</div>
+                    <div class="player-country">🇷🇺 Россия</div>
+                    <div class="player-team">Team Vitality <span class="player-status status-active">Активен</span>
+                    </div>
+                    <div class="prize">💰 $160,000+ призовых</div>
+                </div>
+                <div class="achievements">
+                    <h4>🏆 Главные достижения</h4>
+                    <ul>
+                        <li><span class="tournament-name">VCT LOCK//IN 2023</span><span class="tournament-prize">🥇 1
+                                место</span></li>
+                        <li><span class="tournament-name">VCT Masters Tokyo 2023</span><span class="tournament-prize">🥇
+                                1 место</span></li>
+                        <li><span class="tournament-name">VALORANT Champions 2023</span><span
+                                class="tournament-prize">🥈 2 место</span></li>
+                        <li><span class="tournament-name">VCT EMEA Kickoff 2025</span><span class="tournament-prize">🥇
+                                1 место</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>CNSquad - гид по киберспорту СНГ | 2026</p>
+    </footer>
+
+</body>
+
+</html>

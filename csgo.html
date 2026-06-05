@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNSquad - Команды CS:GO СНГ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b);
+            padding: 25px 0;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }
+
+        header h1 {
+            font-size: 48px;
+        }
+
+        header h1 span {
+            color: #e94560;
+        }
+
+        nav {
+            background-color: #111;
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e94560;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #c73d54;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h2 {
+            font-size: 38px;
+            color: #e94560;
+        }
+
+        /* Команда */
+        .team {
+            background: #1a1a1a;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+
+        .team-header {
+            background: linear-gradient(135deg, #2a2a3e, #1a1a2e);
+            padding: 20px 25px;
+            border-left: 5px solid #e94560;
+        }
+
+        .team-header h3 {
+            font-size: 32px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .team-header .country {
+            color: #e94560;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Сетка игроков */
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 25px;
+        }
+
+        /* Карточка игрока */
+        .player-card {
+            background: #222;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.2);
+        }
+
+        .player-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            background: #333;
+        }
+
+        .player-info {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .player-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .player-nick {
+            color: #e94560;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .rating {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .rating-label {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Сетка статистики */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .stat-bar {
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: #e94560;
+            border-radius: 3px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 4px;
+        }
+
+        /* Достижения и кубки */
+        .achievements {
+            padding: 20px 25px;
+            border-top: 1px solid #333;
+            color: #bbb;
+            background: #111;
+        }
+
+        .trophies {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .trophy {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 90px;
+        }
+
+        .trophy img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .trophy img:hover {
+            transform: scale(1.15);
+        }
+
+        .trophy .trophy-name {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e94560;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .trophy:hover .trophy-name {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #111;
+            margin-top: 50px;
+            border-top: 1px solid #222;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .trophy {
+                width: 70px;
+            }
+
+            .trophy img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .trophy .trophy-name {
+                font-size: 8px;
+                bottom: -30px;
+                white-space: nowrap;
+            }
+
+            .trophies {
+                gap: 15px;
+            }
+        }
+
+        /* Исправление для кубков — чтобы названия не вылезали за границы */
+        .achievements {
+            overflow: visible !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        .trophies {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .trophy {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 90px;
+            z-index: 2;
+        }
+
+        .trophy img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .trophy img:hover {
+            transform: scale(1.15);
+        }
+
+        .trophy .trophy-name {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e94560;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Если название не влезает на телефоне — переносим */
+        @media (max-width: 768px) {
+            .trophy {
+                width: 70px;
+            }
+
+            .trophy img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .trophy .trophy-name {
+                font-size: 8px;
+                bottom: -30px;
+                white-space: normal;
+                word-break: keep-all;
+                text-align: center;
+                min-width: 80px;
+            }
+
+            .trophies {
+                gap: 15px;
+            }
+        }
+
+        /* Дополнительно: чтобы Team Spirit и PARIVISION не налезали друг на друга */
+        .team {
+            margin-bottom: 80px;
+        }
+
+        /* Полное исправление для названий турниров */
+        .team {
+            position: relative;
+            z-index: 1;
+        }
+
+        .team:last-child {
+            margin-bottom: 100px;
+        }
+
+        .achievements {
+            overflow: visible !important;
+            position: relative;
+            z-index: 5;
+        }
+
+        .trophies {
+            overflow: visible !important;
+            position: relative;
+            z-index: 5;
+        }
+
+        .trophy {
+            overflow: visible !important;
+            position: relative;
+            z-index: 10;
+        }
+
+        .trophy .trophy-name {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e94560;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 9999 !important;
+            pointer-events: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .trophy:hover .trophy-name {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Для телефонов */
+        @media (max-width: 768px) {
+            .trophy .trophy-name {
+                font-size: 9px;
+                bottom: -30px;
+                white-space: nowrap;
+                padding: 4px 8px;
+            }
+        }
+
+        /* ФИКС: чтобы название турнира PARIVISION не обрезалось */
+        .team {
+            overflow: visible !important;
+        }
+
+        .team .achievements {
+            overflow: visible !important;
+            position: relative;
+            z-index: 999;
+        }
+
+        .team .trophies {
+            overflow: visible !important;
+            padding-bottom: 40px;
+        }
+
+        .team .trophy .trophy-name {
+            bottom: -40px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>CNS<span>quad</span></h1>
+        <p>CS:GO / CS2 - Команды СНГ</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="csgo.html">CS:GO</a>
+        <a href="valorant.html">Valorant</a>
+        <a href="fortnite.html">Fortnite</a>
+    </nav>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← На главную</a>
+
+        <div class="page-title">
+            <h2>CS:GO команды СНГ</h2>
+            <p>Составы, статистика и достижения топовых команд</p>
+        </div>
+
+        <!-- ==================== TEAM SPIRIT ==================== -->
+        <div class="team">
+            <div class="team-header">
+                <img src="https://img-cdn.hltv.org/teamlogo/ywdn4tmAvXfllLeV2SkkvF.png?ixlib=java-2.1.0&w=100&s=e441b77b1cafbca20ba9f667caca56f4"
+                    alt="Team Spirit"
+                    style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle; margin-right: 15px;"
+                    onerror="this.style.display='none'">
+                <h3>Team Spirit</h3>
+                <div class="country">🇷🇺 Россия</div>
+            </div>
+
+            <div class="players-grid">
+                <!-- sh1ro -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/Grz5vLIlrpeI7IQmm8d-jH.png?ixlib=java-2.1.0&w=400&s=3cfc5c3d0dbe422578931aabe14faa3c"
+                        alt="sh1ro" onerror="this.src='https://via.placeholder.com/300x200?text=sh1ro'">
+                    <div class="player-info">
+                        <div class="player-name">Дмитрий Соколов</div>
+                        <div class="player-nick">sh1ro</div>
+                        <div class="rating">1.14</div>
+                        <div class="rating-label">Rating 3.0 | Top 25% (87th percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">72</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 72%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">17</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 17%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">67</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 67%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">46</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 46%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">78</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 78%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">92</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 92%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">64</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 64%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- magixx -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/1V7ijAaTXl3umTr7cPo0VF.png?ixlib=java-2.1.0&w=400&s=fd243be6d54de849949d6a837c3abe5e"
+                        alt="magixx" onerror="this.src='https://via.placeholder.com/300x200?text=magixx'">
+                    <div class="player-info">
+                        <div class="player-name">Борис Воробьёв</div>
+                        <div class="player-nick">magixx</div>
+                        <div class="rating">1.02</div>
+                        <div class="rating-label">Rating 3.0 | Average (52nd percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">22</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 22%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">72</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 72%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">19</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 19%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">33</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 33%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">52</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 52%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">3</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 3%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">94</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 94%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- tN1R -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/PONEIASU8jyJz2lnNS13bp.png?ixlib=java-2.1.0&w=400&s=c995668c01532a97dc5709f25f479f8d"
+                        alt="tN1R" onerror="this.src='https://via.placeholder.com/300x200?text=tN1R'">
+                    <div class="player-info">
+                        <div class="player-name">Андрей Татаринович</div>
+                        <div class="player-nick">tN1R</div>
+                        <div class="rating">1.04</div>
+                        <div class="rating-label">Rating 3.0 | Average (60th percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">45</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 45%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">60</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 60%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">47</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 47%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">44</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 44%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">41</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 41%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">59</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 59%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- zont1x -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/wi3shJIerTjUCELul_JOus.png?ixlib=java-2.1.0&w=400&s=ce5a7296c8ec30e2bae0592b3be12667"
+                        alt="zont1x" onerror="this.src='https://via.placeholder.com/300x200?text=zont1x'">
+                    <div class="player-info">
+                        <div class="player-name">Мирослав Плахотин</div>
+                        <div class="player-nick">zont1x</div>
+                        <div class="rating">0.95</div>
+                        <div class="rating-label">Rating 3.0 | Bottom 40% (31st percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">21</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 21%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">65</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 65%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">27</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 27%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">31</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 31%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">49</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 49%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">73</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 73%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- donk -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/C4b0sMnty05S40UmXhLRD4.png?ixlib=java-2.1.0&w=400&s=8d846371bff4a867c0fcc3e038e02b1f"
+                        alt="donk" onerror="this.src='https://via.placeholder.com/300x200?text=donk'">
+                    <div class="player-info">
+                        <div class="player-name">Данил Кришковец</div>
+                        <div class="player-nick">donk</div>
+                        <div class="rating">1.41</div>
+                        <div class="rating-label">Rating 3.0 | Top 5% (99th percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">100</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 100%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">82</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 82%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">72</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 72%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">96</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 96%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">35</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 35%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">1</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 1%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">30</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 30%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements" style="margin-bottom: 40px;">
+                <div style="font-size: 20px; margin-bottom: 15px;">🏆 Достижения Team Spirit (10 турниров)</div>
+                <div class="trophies">
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/saXzdBzkcnvGsNX1CVQobK.png?ixlib=java-2.1.0&w=200&s=aeec4651521bab17993f03d4d39945ee"
+                            alt="BetBoom Dacha 2023"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">BetBoom Dacha
+                            2023</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/oH3e_7PhY_HMaIyhVznNo8.png?ixlib=java-2.1.0&w=200&s=806cd6cd9cd555a1033305a15655bbfc"
+                            alt="IEM Katowice 2024"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">IEM Katowice
+                            2024</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/qDf4M98FBFm7V8GOyZHoqz.png?ixlib=java-2.1.0&w=200&s=1c08079074cd09d194061be9228dcb10"
+                            alt="BLAST Premier Spring Final 2024"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">BLAST Premier
+                            Spring Final 2024</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/0E882YrRi2Y_0aJ15A_bLk.png?ixlib=java-2.1.0&w=200&s=7f85139f703cb22c1461f3c5218db070"
+                            alt="BetBoom Dacha Belgrade S2"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">BetBoom Dacha
+                            Belgrade S2</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/MfJIdaAAhbWgRGYiBcXFic.png?ixlib=java-2.1.0&w=200&s=2dbb8a3ef72bbc0ba882ae484d2ba999"
+                            alt="Perfect World Shanghai Major 2024"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">Perfect World
+                            Shanghai Major 2024</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/eJQzbqPQNMO_CMFslGXH36.png?ixlib=java-2.1.0&w=200&s=366290fc440a953422387967f5ca18ce"
+                            alt="BLAST Bounty 2025 S1 Finals"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">BLAST Bounty 2025
+                            S1 Finals</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/Ar0GZFlqv5inDS4Pjd5qrI.png?ixlib=java-2.1.0&w=200&s=3dedcacc3cb360797aa861139b26fad0"
+                            alt="PGL ASTANA 2025"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">PGL ASTANA
+                            2025</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/kz5mo2yl7o0iwRjx3z3hlP.png?ixlib=java-2.1.0&w=200&s=7ad3e2b6cffdbef6bd48257195788151"
+                            alt="IEM COLOGNE 2025"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">IEM COLOGNE
+                            2025</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/L14lcNYoIiNotG5WaLa9KM.png?ixlib=java-2.1.0&w=200&s=9a9aac3895cbe6fb4a5a4a7cb6d3564c"
+                            alt="BLAST Bounty 2025 S2 Finals"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">BLAST Bounty 2025
+                            S2 Finals</span>
+                    </div>
+                    <div class="trophy"><img
+                            src="https://img-cdn.hltv.org/eventtrophy/S6NVv3XPIkjYZew0VnuHwk.png?ixlib=java-2.1.0&w=200&s=0ce5551a306d505410f8cb5c03a1f3f6"
+                            alt="PGL ASTANA 2026"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div><span class="trophy-name">PGL ASTANA
+                            2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PARIVISION ==================== -->
+        <div class="team" style="margin-bottom: 150px;">
+            <div class="team-header">
+                <img src="https://img-cdn.hltv.org/teamlogo/MFcDe-M8wfGOUU6x4sRELR.png?ixlib=java-2.1.0&w=100&s=dccd3a3351064dd1ab9afebbed8443a9"
+                    alt="PARIVISION"
+                    style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle; margin-right: 15px;"
+                    onerror="this.style.display='none'">
+                <h3>PARIVISION</h3>
+                <div class="country">🇷🇺 Россия</div>
+            </div>
+
+            <div class="players-grid">
+                <!-- Jame -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/lExXxzg2gbyA0EHm8KCz4u.png?ixlib=java-2.1.0&w=400&s=c106f0b0387580e86e8b7967a0870a4b"
+                        alt="Jame" onerror="this.src='https://via.placeholder.com/300x200?text=Jame'">
+                    <div class="player-info">
+                        <div class="player-name">Джами Али</div>
+                        <div class="player-nick">Jame</div>
+                        <div class="rating">1.09</div>
+                        <div class="rating-label">Rating 3.0 | Top 25% (77th percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">57</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 57%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">10</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 10%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">43</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 43%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">72</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 72%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">66</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 66%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">93</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 93%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">82</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 82%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BELCHONOKK -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/zUguI2YXOX1m4qNTvjLVJA.png?ixlib=java-2.1.0&w=400&s=d7b91a53ca75d162319590247dadb8c9"
+                        alt="BELCHONOKK" onerror="this.src='https://via.placeholder.com/300x200?text=BELCHONOKK'">
+                    <div class="player-info">
+                        <div class="player-name">Андрей Ясинский</div>
+                        <div class="player-nick">BELCHONOKK</div>
+                        <div class="rating">0.91</div>
+                        <div class="rating-label">Rating 3.0 | Bottom 25% (22nd percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">18</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 18%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">55</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 55%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">73</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 73%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">20</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 20%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">49</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 49%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">53</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 53%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- xiELO -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/12rQpFRvYZuulGxqh4Bp8V.png?ixlib=java-2.1.0&w=400&s=de89c478f6304f225b228c4aef018629"
+                        alt="xiELO" onerror="this.src='https://via.placeholder.com/300x200?text=xiELO'">
+                    <div class="player-info">
+                        <div class="player-name">Владислав Лысов</div>
+                        <div class="player-nick">xiELO</div>
+                        <div class="rating">0.97</div>
+                        <div class="rating-label">Rating 3.0 | Bottom 40% (37th percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">28</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 28%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">89</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 89%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">31</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 31%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">48</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 48%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">38</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 38%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">1</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 1%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">44</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 44%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- nota -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/5nxuQDMUKuIOM0WQkHU5IU.png?ixlib=java-2.1.0&w=400&s=4db636bcb2c5b0c070a3607deba2bbe1"
+                        alt="nota" onerror="this.src='https://via.placeholder.com/300x200?text=nota'">
+                    <div class="player-info">
+                        <div class="player-name">Эмиль Москвитин</div>
+                        <div class="player-nick">nota</div>
+                        <div class="rating">0.93</div>
+                        <div class="rating-label">Rating 3.0 | Bottom 40% (26th percentile)</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">29</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 29%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">74</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 74%"></div>
+                            </div>
+                            <div class="stat-label">Entrying</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">62</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 62%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">74</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 74%"></div>
+                            </div>
+                            <div class="stat-label">Opening</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">40</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 40%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="stat-label">Sniping</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">62</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 62%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- zweih -->
+                <!-- zweih -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/6JACic_lKVZHnkG8w2EEqe.png?ixlib=java-2.1.0&w=400&s=f68c34c9cce1bc78aa779e73fa8ccf01"
+                        alt="zweih" onerror="this.src='https://via.placeholder.com/300x200?text=zweih'">
+                    <div class="player-info">
+                        <div class="player-name">Иван Гогин</div>
+                        <div class="player-nick">zweih</div>
+                        <div class="rating">1.09</div>
+                        <div class="rating-label">Rating 2.0 | Rifler, 18 лет</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">56</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 56%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">68</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 68%"></div>
+                            </div>
+                            <div class="stat-label">KAST</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">72</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 72%"></div>
+                            </div>
+                            <div class="stat-label">ADR</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0.70</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 70%"></div>
+                            </div>
+                            <div class="stat-label">KPR</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">1.45</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 96%"></div>
+                            </div>
+                            <div class="stat-label">Peak Rating</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">18</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 18%"></div>
+                            </div>
+                            <div class="stat-label">Age</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">46%</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 46%"></div>
+                            </div>
+                            <div class="stat-label">Win Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- закрывает players-grid -->
+
+            <div class="achievements">
+                <div style="font-size: 20px; margin-bottom: 15px;">🏆 Достижения PARIVISION</div>
+                <div class="trophies">
+                    <div class="trophy">
+                        <img src="https://img-cdn.hltv.org/eventtrophy/47m7Knamw-6Mx7E6HmVkCZ.png?ixlib=java-2.1.0&w=200&s=82f1974745e2d6b693a956643cf34527"
+                            alt="BLAST Bounty 2026 Season 1 Finals"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 40px; display: none;">🏆</div>
+                        <span class="trophy-name">BLAST Bounty 2026 S1 Finals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== NAVI ==================== -->
+        <div class="team" style="margin-top: 80px;">
+            <div class="team-header">
+                <img src="https://img-cdn.hltv.org/teamlogo/9iMirAi7ArBLNU8p3kqUTZ.svg?ixlib=java-2.1.0&s=4dd8635be16122656093ae9884675d0c"
+                    alt="NAVI"
+                    style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle; margin-right: 15px;"
+                    onerror="this.style.display='none'">
+                <h3>NAVI (Natus Vincere)</h3>
+                <div class="country">🇺🇦 Украина</div>
+            </div>
+
+            <div class="players-grid">
+                <!-- Aleksib -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/7-TvianW79yWk13gdw-Jc5.png?ixlib=java-2.1.0&w=400&s=f94eda5a77f332bc02821e6b845ca207"
+                        alt="Aleksib" onerror="this.src='https://via.placeholder.com/300x200?text=Aleksib'">
+                    <div class="player-info">
+                        <div class="player-name">Алекси Виролайнен</div>
+                        <div class="player-nick">Aleksib</div>
+                        <div class="rating">1.06</div>
+                        <div class="rating-label">Rating 3.0 | Капитан</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">54</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 54%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">71</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 71%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">83</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 83%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">89</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 89%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- iM -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/lWNcoOFOcHF3uIERANZRXh.png?ixlib=java-2.1.0&w=400&s=cd5df4d5e89df8cab0e4a7edd6db0d8b"
+                        alt="iM" onerror="this.src='https://via.placeholder.com/300x200?text=iM'">
+                    <div class="player-info">
+                        <div class="player-name">Иван Михай</div>
+                        <div class="player-nick">iM</div>
+                        <div class="rating">1.12</div>
+                        <div class="rating-label">Rating 3.0 | Рифлер</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">78</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 78%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">68</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 68%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">59</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 59%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">52</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 52%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- b1t -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/CgO3veixSYH5OMIePtwp1u.png?ixlib=java-2.1.0&w=400&s=1b5f0f326bf822540d59ae246c1b7e65"
+                        alt="b1t" onerror="this.src='https://via.placeholder.com/300x200?text=b1t'">
+                    <div class="player-info">
+                        <div class="player-name">Валерий Ваховский</div>
+                        <div class="player-nick">b1t</div>
+                        <div class="rating">1.18</div>
+                        <div class="rating-label">Rating 3.0 | Рифлер</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">85</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 85%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">74</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 74%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">62</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 62%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">71</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 71%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- w0nderful -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/OepRRBoc68iVojIfgK3JIA.png?ixlib=java-2.1.0&w=400&s=99dcc1115ffec1ed275a5cf4eacca825"
+                        alt="w0nderful" onerror="this.src='https://via.placeholder.com/300x200?text=w0nderful'">
+                    <div class="player-info">
+                        <div class="player-name">Игорь Жданов</div>
+                        <div class="player-nick">w0nderful</div>
+                        <div class="rating">1.21</div>
+                        <div class="rating-label">Rating 3.0 | Снайпер</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">68</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 68%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">58</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 58%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">71</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 71%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">55</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 55%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- makazze -->
+                <div class="player-card">
+                    <img src="https://img-cdn.hltv.org/playerbodyshot/U6KmIKHcqg2OpMrNn-Aqk6.png?ixlib=java-2.1.0&w=400&s=420f1bcb0e6943b68fafb5e2d933197c"
+                        alt="makazze" onerror="this.src='https://via.placeholder.com/300x200?text=makazze'">
+                    <div class="player-info">
+                        <div class="player-name">Дрин Шакири</div>
+                        <div class="player-nick">makazze</div>
+                        <div class="rating">1.04</div>
+                        <div class="rating-label">Rating 3.0 | Энтри</div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">62</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 62%"></div>
+                            </div>
+                            <div class="stat-label">Firepower</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">49</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 49%"></div>
+                            </div>
+                            <div class="stat-label">Trading</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">44</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 44%"></div>
+                            </div>
+                            <div class="stat-label">Clutching</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">63</div>
+                            <div class="stat-bar">
+                                <div class="stat-fill" style="width: 63%"></div>
+                            </div>
+                            <div class="stat-label">Utility</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements">
+                <div style="font-size: 20px; margin-bottom: 15px;">🏆 Достижения NAVI</div>
+                <div class="trophies">
+                    <div class="trophy">
+                        <img src="https://www.hltv.org/img/static/event/trophies/4866.png"
+                            alt="PGL Major Stockholm 2021"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 35px; display: none;">🏆</div>
+                        <span class="trophy-name">PGL Major Stockholm 2021</span>
+                    </div>
+                    <div class="trophy">
+                        <img src="https://www.hltv.org/img/static/event/trophies/4901.png" alt="IEM Katowice 2020"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 35px; display: none;">🏆</div>
+                        <span class="trophy-name">IEM Katowice 2020</span>
+                    </div>
+                    <div class="trophy">
+                        <img src="https://www.hltv.org/img/static/event/trophies/5469.png" alt="IEM Cologne 2021"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 35px; display: none;">🏆</div>
+                        <span class="trophy-name">IEM Cologne 2021</span>
+                    </div>
+                    <div class="trophy">
+                        <img src="https://img-cdn.hltv.org/eventtrophy/A75fNRcqpika43kbFHyCcm.png?ixlib=java-2.1.0&w=200&s=3fc87e5d1330dec58a97f3e7d8ab69da"
+                            alt="PGL Major Copenhagen 2024"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 35px; display: none;">🏆</div>
+                        <span class="trophy-name">PGL Major Copenhagen 2024</span>
+                    </div>
+                    <div class="trophy">
+                        <img src="https://img-cdn.hltv.org/eventtrophy/sRnGzqT9Rqj-uJMatfEqYo.png?ixlib=java-2.1.0&w=200&s=ac4f9d4f05ce4d476b5bcac6682f6023.jpg"
+                            alt="ESL Pro League S20 2024" style="width: 50px; height: 50px; object-fit: contain;"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 35px; display: none;">🏆</div>
+                        <span class="trophy-name">ESL Pro League S20 2024</span>
+                    </div>
+                    <div class="trophy">
+                        <img src="https://img-cdn.hltv.org/eventtrophy/YIMxZj4FahKqFdcyUlSG0z.png?ixlib=java-2.1.0&w=200&s=bcc0dbd7d738aa713d9c0cd73e8ea6b8.jpg"
+                            alt="Esports World Cup 2024" style="width: 50px; height: 50px; object-fit: contain;"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div style="font-size: 35px; display: none;">🏆</div>
+                        <span class="trophy-name">Esports World Cup 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>CNSquad - гид по киберспорту СНГ | 2026</p>
+            </footer>
+</body>
+
+</html>
