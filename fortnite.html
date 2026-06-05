@@ -5,39 +5,257 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CNSquad - Звездные игроки Fortnite из СНГ</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0a0a0a; color: #e0e0e0; }
-        header { background: linear-gradient(135deg, #0d1b2a, #1b263b); padding: 25px 0; text-align: center; border-bottom: 3px solid #e94560; }
-        header h1 { font-size: 48px; }
-        header h1 span { color: #e94560; }
-        nav { background-color: #111; padding: 15px 0; text-align: center; position: sticky; top: 0; z-index: 100; }
-        nav a { color: #ddd; text-decoration: none; margin: 0 20px; font-size: 18px; font-weight: bold; transition: color 0.3s; }
-        nav a:hover { color: #e94560; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; padding-bottom: 150px; }
-        .back-btn { display: inline-block; background: #e94560; color: white; padding: 10px 25px; border-radius: 30px; text-decoration: none; margin-bottom: 30px; transition: background 0.3s; }
-        .back-btn:hover { background: #c73d54; }
-        .page-title { text-align: center; margin-bottom: 40px; }
-        .page-title h2 { font-size: 38px; color: #e94560; }
-        .players-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 100px; padding: 25px; }
-        .player-card { background: #1a1a1a; border-radius: 20px; overflow: visible; transition: transform 0.3s, box-shadow 0.3s; position: relative; margin-bottom: 40px; }
-        .player-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(233, 69, 96, 0.2); }
-        .player-card img { width: 100%; height: 220px; object-fit: cover; object-position: top; background: #333; border-radius: 20px 20px 0 0; }
-        .player-info { padding: 20px; text-align: center; border-bottom: 1px solid #333; }
-        .player-name { font-size: 20px; font-weight: bold; }
-        .player-nick { color: #e94560; font-size: 24px; font-weight: bold; margin: 5px 0; }
-        .player-country { font-size: 14px; color: #aaa; margin-bottom: 10px; }
-        .player-team { background: #e94560; color: white; padding: 5px 12px; border-radius: 20px; display: inline-block; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
-        .prize { font-size: 18px; color: #ffd700; font-weight: bold; margin-top: 10px; }
-        .achievements { padding: 15px 20px; border-top: 1px solid #333; background: #111; overflow: visible; padding-bottom: 50px; }
-        .achievements h4 { color: #e94560; margin-bottom: 10px; font-size: 16px; }
-        .tournaments-list { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; overflow: visible; padding-bottom: 20px; }
-        .tournament-icon { position: relative; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; overflow: visible; }
-        .tournament-icon img { width: 32px; height: 32px; object-fit: contain; border-radius: 0; transition: transform 0.2s; }
-        .tournament-icon img:hover { transform: scale(1.15); }
-        .tournament-icon .tournament-name { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); background: #e94560; color: white; padding: 6px 12px; border-radius: 20px; font-size: 10px; font-weight: bold; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity 0.2s ease, visibility 0.2s ease; z-index: 9999; pointer-events: none; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .tournament-icon:hover .tournament-name { opacity: 1; visibility: visible; }
-        footer { text-align: center; padding: 30px; background: #111; margin-top: 50px; border-top: 1px solid #222; color: #666; }
-        @media (max-width: 768px) { .players-grid { grid-template-columns: 1fr; gap: 70px; } .tournament-icon .tournament-name { font-size: 8px; bottom: -35px; white-space: nowrap; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b);
+            padding: 25px 0;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }
+
+        header h1 {
+            font-size: 48px;
+        }
+
+        header h1 span {
+            color: #e94560;
+        }
+
+        nav {
+            background-color: #111;
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e94560;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #c73d54;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h2 {
+            font-size: 38px;
+            color: #e94560;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            padding: 25px;
+        }
+
+        .player-card {
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.2);
+        }
+
+        .player-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: top;
+            background: #333;
+        }
+
+        .player-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .player-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .player-nick {
+            color: #e94560;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .player-country {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .player-team {
+            background: #e94560;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .prize {
+            font-size: 18px;
+            color: #ffd700;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .achievements {
+            padding: 15px 20px;
+            border-top: 1px solid #333;
+            background: #111;
+        }
+
+        .achievements h4 {
+            color: #e94560;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .tournaments-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .tournament-icon {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .tournament-symbol {
+            font-size: 28px;
+            transition: transform 0.2s ease;
+        }
+
+        .tournament-icon:hover .tournament-symbol {
+            transform: scale(1.15);
+        }
+
+        .tournament-icon .tournament-name {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e94560;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 100;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .tournament-icon:hover .tournament-name {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #111;
+            margin-top: 50px;
+            border-top: 1px solid #222;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .players-grid {
+                grid-template-columns: 1fr;
+            }
+            .tournament-symbol {
+                font-size: 22px;
+            }
+            .tournament-icon .tournament-name {
+                font-size: 8px;
+                bottom: -30px;
+                white-space: nowrap;
+            }
+        }
+
+        /* Фикс для отображения названий турниров */
+        .player-card {
+            overflow: visible !important;
+            position: relative;
+        }
+        .achievements {
+            overflow: visible !important;
+        }
+        .tournaments-list {
+            overflow: visible !important;
+            padding-bottom: 40px;
+        }
+        .tournament-icon {
+            overflow: visible !important;
+        }
+        .players-grid {
+            gap: 80px;
+        }
     </style>
 </head>
 <body>
@@ -56,6 +274,7 @@
 
 <div class="container">
     <a href="index.html" class="back-btn">← На главную</a>
+    
     <div class="page-title">
         <h2>Звездные игроки Fortnite из СНГ</h2>
         <p>Лучшие представители региона на мировой сцене</p>
@@ -63,7 +282,7 @@
 
     <div class="players-grid">
         <!-- Merstach -->
-        <div class="player-card" style="overflow: visible;">
+        <div class="player-card">
             <img src="images/merstach.jpg" alt="Merstach" onerror="this.src='https://via.placeholder.com/400x220?text=Merstach'">
             <div class="player-info">
                 <div class="player-name">Андрейс Пиратовс</div>
@@ -72,19 +291,19 @@
                 <div class="player-team">Gentle Mates</div>
                 <div class="prize">💰 $921,000+ призовых</div>
             </div>
-            <div class="achievements" style="overflow: visible;">
+            <div class="achievements">
                 <h4>🏆 Главные достижения</h4>
-                <div class="tournaments-list" style="overflow: visible;">
-                    <div class="tournament-icon"><img src="https://liquipedia.net/commons/images/thumb/2/2e/FNCS_2023_Global_Championship_allmode.png/50px-FNCS_2023_Global_Championship_allmode.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"><div style="font-size: 28px; display: none;">🌍🏆</div><span class="tournament-name">FNCS Global Championship 2025 - 🥇 $150,000</span></div>
-                    <div class="tournament-icon"><img src="https://static.wikia.nocookie.net/fortnite/images/8/85/FNCS_Major_1_2024_Logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"><div style="font-size: 28px; display: none;">🇪🇺🏆</div><span class="tournament-name">FNCS Major 1 2024 Europe - 🥇 $85,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🏆</div><span class="tournament-name">FNCS Major 1 2023 Europe - 🥇 $100,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🥈</div><span class="tournament-name">C3S3 FNCS Grand Finals Europe - 🥈 $100,000</span></div>
+                <div class="tournaments-list">
+                    <div class="tournament-icon"><span class="tournament-symbol">🌍🏆</span><span class="tournament-name">FNCS Global Championship 2025 - 🥇 $150,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">FNCS Major 1 2024 Europe - 🥇 $85,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🥇</span><span class="tournament-name">FNCS Major 1 2023 Europe - 🥇 $100,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🥈</span><span class="tournament-name">C3S3 FNCS Grand Finals Europe - 🥈 $100,000</span></div>
                 </div>
             </div>
         </div>
 
         <!-- Malibuca -->
-        <div class="player-card" style="overflow: visible;">
+        <div class="player-card">
             <img src="images/malibuca.jpg" alt="Malibuca" onerror="this.src='https://via.placeholder.com/400x220?text=Malibuca'">
             <div class="player-info">
                 <div class="player-name">Данила Яковенко</div>
@@ -93,19 +312,20 @@
                 <div class="player-team">Свободный агент</div>
                 <div class="prize">💰 $1,161,000+ призовых</div>
             </div>
-            <div class="achievements" style="overflow: visible;">
+            <div class="achievements">
                 <h4>🏆 Главные достижения</h4>
-                <div class="tournaments-list" style="overflow: visible;">
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇸🇦🏆</div><span class="tournament-name">Gamers8 2022 - 🥇 $125,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🏆</div><span class="tournament-name">FNCS Major 1 2024 Europe - 🥇 $85,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🥈</div><span class="tournament-name">C3S3 FNCS Grand Finals Europe - 🥈 $100,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🥈</div><span class="tournament-name">FNCS Major 1 2023 Europe - 🥈 $60,000</span></div>
+                <div class="tournaments-list">
+                    <div class="tournament-icon"><span class="tournament-symbol">🇸🇦🏆</span><span class="tournament-name">Gamers8 2022 - 🥇 $125,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">FNCS Major 1 2024 Europe - 🥇 $85,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🥈</span><span class="tournament-name">C3S3 FNCS Grand Finals Europe - 🥈 $100,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🥈</span><span class="tournament-name">FNCS Major 1 2023 Europe - 🥈 $60,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🥈</span><span class="tournament-name">FNCS Major 1 2025 Europe - 🥈 $40,000</span></div>
                 </div>
             </div>
         </div>
 
         <!-- Tuz -->
-        <div class="player-card" style="overflow: visible;">
+        <div class="player-card">
             <img src="images/tuz.jpg" alt="Tuz" onerror="this.src='https://via.placeholder.com/400x220?text=Tuz'">
             <div class="player-info">
                 <div class="player-name">Илья Чернышов</div>
@@ -114,17 +334,17 @@
                 <div class="player-team">Team Vitality</div>
                 <div class="prize">💰 $260,000+ призовых</div>
             </div>
-            <div class="achievements" style="overflow: visible;">
+            <div class="achievements">
                 <h4>🏆 Главные достижения</h4>
-                <div class="tournaments-list" style="overflow: visible;">
-                    <div class="tournament-icon"><div style="font-size: 32px;">🌍🥉</div><span class="tournament-name">FNCS Invitational 2024 - 🥉 $120,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🏆</div><span class="tournament-name">FNCS Major 3 2023 Europe - 🥇 $200,000</span></div>
+                <div class="tournaments-list">
+                    <div class="tournament-icon"><span class="tournament-symbol">🌍🥉</span><span class="tournament-name">FNCS Invitational 2024 - 🥉 $120,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">FNCS Major 3 2023 Europe - 🥇 $200,000</span></div>
                 </div>
             </div>
         </div>
 
         <!-- SwizzY -->
-        <div class="player-card" style="overflow: visible;">
+        <div class="player-card">
             <img src="images/swizzy.jpg" alt="SwizzY" onerror="this.src='https://via.placeholder.com/400x220?text=SwizzY'">
             <div class="player-info">
                 <div class="player-name">Егор Лучко</div>
@@ -133,19 +353,19 @@
                 <div class="player-team">HavoK by Vitality</div>
                 <div class="prize">💰 $656,000+ призовых</div>
             </div>
-            <div class="achievements" style="overflow: visible;">
+            <div class="achievements">
                 <h4>🏆 Главные достижения</h4>
-                <div class="tournaments-list" style="overflow: visible;">
-                    <div class="tournament-icon"><img src="https://static.wikia.nocookie.net/fortnite/images/9/94/FNCS_Global_Championship_2025_Logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"><div style="font-size: 28px; display: none;">🌍🏆</div><span class="tournament-name">FNCS Global Championship 2025 - 🥇 $150,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🏆</div><span class="tournament-name">FNCS Major 2 2024 Europe - 🥇 $85,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🏆</div><span class="tournament-name">FNCS Major 3 2023 Europe - 🥇 $100,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇷🇺🏆</div><span class="tournament-name">Games of the Future 2025 - 🥇 $35,000</span></div>
+                <div class="tournaments-list">
+                    <div class="tournament-icon"><span class="tournament-symbol">🌍🏆</span><span class="tournament-name">FNCS Global Championship 2025 - 🥇 $150,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">FNCS Major 2 2024 Europe - 🥇 $85,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">FNCS Major 3 2023 Europe - 🥇 $100,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇷🇺🏆</span><span class="tournament-name">Games of the Future 2025 - 🥇 $35,000</span></div>
                 </div>
             </div>
         </div>
 
         <!-- Vanyak3kk -->
-        <div class="player-card" style="overflow: visible; margin-bottom: 80px;">
+        <div class="player-card">
             <img src="images/vanyak3kk.jpg" alt="Vanyak3kk" onerror="this.src='https://via.placeholder.com/400x220?text=Vanyak3kk'">
             <div class="player-info">
                 <div class="player-name">Ваня Сакач</div>
@@ -154,19 +374,19 @@
                 <div class="player-team">Gentle Mates</div>
                 <div class="prize">💰 $559,000+ призовых</div>
             </div>
-            <div class="achievements" style="overflow: visible;">
+            <div class="achievements">
                 <h4>🏆 Главные достижения</h4>
-                <div class="tournaments-list" style="overflow: visible;">
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🏆</div><span class="tournament-name">FNCS Major 2 2025 Europe - 🥇 $60,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🏆</div><span class="tournament-name">FNCS Major 2 2024 Europe - 🥇 $85,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🌍🥈</div><span class="tournament-name">FNCS Global Championship 2025 - 🥈 $100,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🥉</div><span class="tournament-name">FNCS Major 3 2025 Europe - 🥉 $27,000</span></div>
+                <div class="tournaments-list">
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">FNCS Major 2 2025 Europe - 🥇 $60,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">FNCS Major 2 2024 Europe - 🥇 $85,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🌍🥈</span><span class="tournament-name">FNCS Global Championship 2025 - 🥈 $100,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🥉</span><span class="tournament-name">FNCS Major 3 2025 Europe - 🥉 $27,000</span></div>
                 </div>
             </div>
         </div>
 
         <!-- Kiryache32 -->
-        <div class="player-card" style="overflow: visible;">
+        <div class="player-card">
             <img src="images/kiryache32.jpg" alt="Kiryache32" onerror="this.src='https://via.placeholder.com/400x220?text=Kiryache32'">
             <div class="player-info">
                 <div class="player-name">Кирилл Гришин</div>
@@ -175,12 +395,12 @@
                 <div class="player-team">Mind Games</div>
                 <div class="prize">💰 $414,000+ призовых</div>
             </div>
-            <div class="achievements" style="overflow: visible;">
+            <div class="achievements">
                 <h4>🏆 Главные достижения</h4>
-                <div class="tournaments-list" style="overflow: visible;">
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🏆</div><span class="tournament-name">C2S7 FNCS Grand Finals Europe - 🥇 $100,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺🥈</div><span class="tournament-name">C3S1 FNCS Grand Finals Europe - 🥈 $100,000</span></div>
-                    <div class="tournament-icon"><div style="font-size: 32px;">🇪🇺5️⃣</div><span class="tournament-name">C2S8 FNCS Grand Finals Europe - 5 место $35,000</span></div>
+                <div class="tournaments-list">
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🏆</span><span class="tournament-name">C2S7 FNCS Grand Finals Europe - 🥇 $100,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺🥈</span><span class="tournament-name">C3S1 FNCS Grand Finals Europe - 🥈 $100,000</span></div>
+                    <div class="tournament-icon"><span class="tournament-symbol">🇪🇺5️⃣</span><span class="tournament-name">C2S8 FNCS Grand Finals Europe - 5 место $35,000</span></div>
                 </div>
             </div>
         </div>
