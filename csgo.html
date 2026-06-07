@@ -86,7 +86,6 @@
             color: #e94560;
         }
 
-        /* Команда */
         .team {
             background: #1a1a1a;
             border-radius: 20px;
@@ -112,7 +111,6 @@
             margin-top: 5px;
         }
 
-        /* Сетка игроков */
         .players-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -120,7 +118,6 @@
             padding: 25px;
         }
 
-        /* Карточка игрока */
         .player-card {
             background: #222;
             border-radius: 15px;
@@ -170,7 +167,6 @@
             color: #888;
         }
 
-        /* Сетка статистики */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -208,7 +204,6 @@
             margin-top: 4px;
         }
 
-        /* Достижения и кубки */
         .achievements {
             padding: 20px 25px;
             border-top: 1px solid #333;
@@ -307,7 +302,6 @@
             }
         }
 
-        /* Исправление для кубков — чтобы названия не вылезали за границы */
         .achievements {
             overflow: visible !important;
             position: relative;
@@ -366,7 +360,6 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Если название не влезает на телефоне — переносим */
         @media (max-width: 768px) {
             .trophy {
                 width: 70px;
@@ -391,12 +384,10 @@
             }
         }
 
-        /* Дополнительно: чтобы Team Spirit и PARIVISION не налезали друг на друга */
         .team {
             margin-bottom: 80px;
         }
 
-        /* Полное исправление для названий турниров */
         .team {
             position: relative;
             z-index: 1;
@@ -449,7 +440,6 @@
             visibility: visible;
         }
 
-        /* Для телефонов */
         @media (max-width: 768px) {
             .trophy .trophy-name {
                 font-size: 9px;
@@ -459,7 +449,6 @@
             }
         }
 
-        /* ФИКС: чтобы название турнира PARIVISION не обрезалось */
         .team {
             overflow: visible !important;
         }
